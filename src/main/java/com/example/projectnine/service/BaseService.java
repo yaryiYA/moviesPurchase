@@ -4,18 +4,17 @@ import com.example.projectnine.entity.AbstractEntity;
 import com.example.projectnine.repository.CommonRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public abstract class AbstractService<E extends AbstractEntity,R extends CommonRepository<E>>
+public abstract class BaseService<E extends AbstractEntity,R extends CommonRepository<E>>
                     implements CommonService<E>{
 
     final R repository;
     @Autowired
-    public AbstractService(R repository) {
+    public BaseService(R repository) {
         this.repository = repository;
     }
 
@@ -41,7 +40,6 @@ public abstract class AbstractService<E extends AbstractEntity,R extends CommonR
         }
       return repository.save(object);
     }
-
     @Override
     public void delete(UUID uuid) {
         repository.deleteById(uuid);

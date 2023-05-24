@@ -18,7 +18,7 @@ public class Users extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
     @NonNull

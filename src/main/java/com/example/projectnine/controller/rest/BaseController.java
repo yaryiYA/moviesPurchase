@@ -7,12 +7,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import java.util.List;
 import java.util.UUID;
 
-public abstract class AbstractController<E extends AbstractEntity, S extends CommonService<E>>
+public abstract class BaseController<E extends AbstractEntity, S extends CommonService<E>>
         implements CommonController<E> {
 
     private final S service;
     @Autowired
-    public AbstractController(S service) {
+    public BaseController(S service) {
         this.service = service;
     }
 
