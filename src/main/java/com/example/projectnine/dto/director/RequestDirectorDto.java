@@ -1,5 +1,6 @@
 package com.example.projectnine.dto.director;
 
+import com.example.projectnine.dto.AbstractRequestDto;
 import lombok.Data;
 
 import java.io.Serializable;
@@ -9,7 +10,7 @@ import java.util.UUID;
  * A DTO for the {@link com.example.projectnine.entity.Director} entity
  */
 @Data
-public class RequestDirectorDto implements Serializable {
+public class RequestDirectorDto extends AbstractRequestDto implements Serializable {
     private final UUID id;
     private final String firstName;
     private final String lastName;
