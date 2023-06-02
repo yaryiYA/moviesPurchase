@@ -21,7 +21,7 @@ public class Users extends AbstractEntity {
     @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
-    @NonNull
+
     @Column(name = "login", nullable = false)
     private String login;
 
