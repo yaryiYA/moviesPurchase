@@ -14,14 +14,14 @@ import java.util.UUID;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Schema(description = " request dto director")
+@Schema(name = "Request director", description = " request dto director")
 public class RequestDirectorDto extends AbstractRequestDto implements Serializable {
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
+    @Schema(description = "field uuid", example = "id")
     private final UUID id;
-    @Schema(description = " firstName director", example = "Ivan")
+    @Schema(description = "field firstName", example = "Ivan")
     private final String firstName;
-    @Schema(description = "lastName director", example = "Ivanov")
+    @Schema(description = "field lastName", example = "Ivanov")
     private final String lastName;
-    @Schema(description = " job title", example = "general director")
+    @Schema(description = "field job title", example = "general director")
     private final String position;
 }

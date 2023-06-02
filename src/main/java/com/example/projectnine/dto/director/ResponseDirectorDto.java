@@ -13,14 +13,13 @@ import java.util.UUID;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-@Schema(description = "response dto director")
-public class ResponseDirectorDto  extends AbstractResponseDto implements Serializable {
-    @Schema(accessMode = Schema.AccessMode.READ_ONLY)
-    private final UUID id;
-    @Schema(description = " firstName director", example = "Ivan")
+@Schema(name = "Response director", description = "response dto director")
+public class ResponseDirectorDto extends AbstractResponseDto implements Serializable {
+
+    @Schema(description = "field firstName", example = "Ivan")
     private final String firstName;
-    @Schema(description = "lastName director", example = "Ivanov")
+    @Schema(description = "field lastName", example = "Ivanov")
     private final String lastName;
-    @Schema(description = " job title", example = "general director")
+    @Schema(description = "field job title", example = "general director")
     private final String position;
 }

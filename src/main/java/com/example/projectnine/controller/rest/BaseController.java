@@ -5,6 +5,7 @@ import com.example.projectnine.dto.AbstractResponseDto;
 import com.example.projectnine.entity.AbstractEntity;
 import com.example.projectnine.service.CommonService;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 
 import java.util.List;
 import java.util.Optional;
@@ -26,12 +27,12 @@ public abstract class BaseController <E extends AbstractEntity,
     }
 
     @Override
-    public Optional<S> getEntity(UUID uuid) {
+    public Optional<S> getEntity(@Parameter(description = "entity ID",required = true)UUID uuid) {
         return service.findEntity(uuid);
     }
 
     @Override
-    public S createEntity(Q entity) {
+    public S createEntity(@Parameter(description = " post object",required = true) Q entity) {
         return service.create(entity);
     }
 
@@ -41,6 +42,7 @@ public abstract class BaseController <E extends AbstractEntity,
     }
 
     @Override
+    @Parameter(description = "entity ID",required = true)
     public void deleteEntity(UUID uuid) {
         service.delete(uuid);
     }

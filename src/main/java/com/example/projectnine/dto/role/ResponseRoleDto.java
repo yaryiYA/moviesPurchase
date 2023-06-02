@@ -1,6 +1,8 @@
 package com.example.projectnine.dto.role;
 
 import com.example.projectnine.dto.AbstractResponseDto;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,8 +14,8 @@ import java.util.UUID;
  */
 @EqualsAndHashCode(callSuper = true)
 @Data
-
+@Schema(name = "Response role", description = "Response role dto")
 public class ResponseRoleDto extends AbstractResponseDto implements Serializable {
-    private final UUID id;
+    @Schema(name = "field title", example = " ADMIN")
     private final String title;
 }
