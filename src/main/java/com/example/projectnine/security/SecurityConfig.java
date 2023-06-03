@@ -28,21 +28,17 @@ public class SecurityConfig {
         http.csrf().disable();
         http.authorizeHttpRequests()
                 .requestMatchers("/api/v1/user/**").permitAll()
-
+                .requestMatchers("/swagger-ui/**").permitAll()
+                .requestMatchers("/v3/api-docs/**").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .httpBasic()
-//                .formLogin()
                 .and()
                 .authenticationProvider(daoAuthenticationProvider());
-
         return http.build();
     }
 
-    @Bean
-    public WebSecurityCustomizer webSecurityCustomizer() {
-        return (web) -> web.ignoring().requestMatchers("/v3/api-docs/**","/swagger-ui/**");
-    }
+
 
     @Bean
     public DaoAuthenticationProvider daoAuthenticationProvider(){
