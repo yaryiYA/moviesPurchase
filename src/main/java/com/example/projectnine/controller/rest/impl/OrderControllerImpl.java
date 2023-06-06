@@ -8,7 +8,9 @@ import com.example.projectnine.service.impl.OrderServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
@@ -53,5 +55,12 @@ public class OrderControllerImpl extends BaseController<Order, RequestOrderDto, 
     @Operation(summary = " delete film for id")
     public void deleteEntity(UUID uuid) {
         super.deleteEntity(uuid);
+    }
+
+    @GetMapping("/rentFilms")
+    @Operation(summary = "make an order")
+    public ResponseOrderDto rentFilms(@RequestParam("userId") UUID userId,
+                                      @RequestParam("filmId") UUID filmId) {
+        return super.service.filmRental(userId, filmId);
     }
 }

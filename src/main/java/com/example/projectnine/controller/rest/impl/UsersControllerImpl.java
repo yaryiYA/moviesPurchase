@@ -1,16 +1,14 @@
 package com.example.projectnine.controller.rest.impl;
 
 import com.example.projectnine.controller.rest.BaseController;
+import com.example.projectnine.dto.film.ResponseFilmDto;
 import com.example.projectnine.dto.user.RequestUsersDto;
 import com.example.projectnine.dto.user.ResponseUsersDto;
 import com.example.projectnine.entity.Users;
 import com.example.projectnine.service.impl.UsersServiceImpl;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +28,8 @@ public class UsersControllerImpl extends BaseController<Users, RequestUsersDto, 
 
     @PostMapping("/register")
     @Operation(summary = "user registration")
-    public void registerUser(@RequestBody Users user) {
-        usersService.registerUser(user);
+    public ResponseUsersDto registerUser(@RequestBody RequestUsersDto requestUsersDto) {
+        return usersService.registerUser(requestUsersDto);
     }
 
     @Override
@@ -62,5 +60,10 @@ public class UsersControllerImpl extends BaseController<Users, RequestUsersDto, 
     @Operation(summary = " delete user for id")
     public void deleteEntity(UUID uuid) {
         super.deleteEntity(uuid);
+    }
+    @Operation(summary = "all user movies")
+    @GetMapping("/allFilms/{UUID}")
+    public List<ResponseFilmDto> allFilmsByUser(@PathVariable("UUID") UUID userId) {
+       return super.service.allFilmsByUser(userId);
     }
 }

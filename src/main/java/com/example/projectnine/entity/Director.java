@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.Hibernate;
 
+import java.util.LinkedHashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -22,6 +24,12 @@ public class Director extends AbstractEntity {
 
     @Column(name = "position")
     private String position;
+
+    @ManyToMany
+    @JoinTable(name = "director_films",
+            joinColumns = @JoinColumn(name = "director_id"),
+            inverseJoinColumns = @JoinColumn(name = "films_id"))
+    private Set<Film> films = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

@@ -16,8 +16,7 @@ import java.util.UUID;
 @Data
 @Schema(name = "Request director", description = " request dto director")
 public class RequestDirectorDto extends AbstractRequestDto implements Serializable {
-    @Schema(description = "field uuid", example = "id")
-    private final UUID id;
+
     @Schema(description = "field firstName", example = "Ivan")
     private final String firstName;
     @Schema(description = "field lastName", example = "Ivanov")

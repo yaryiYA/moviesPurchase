@@ -3,6 +3,7 @@ package com.example.projectnine.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 import org.hibernate.Hibernate;
 
 import java.util.LinkedHashSet;
@@ -14,6 +15,8 @@ import java.util.UUID;
 @Setter
 @Entity
 @Table(name = "film")
+@ToString
+
 public class Film extends AbstractEntity {
     @Column(name = "title")
     private String title;
@@ -21,10 +24,7 @@ public class Film extends AbstractEntity {
     @Column(name = "country")
     private String country;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "film_directors",
-            joinColumns = @JoinColumn(name = "film_id"),
-            inverseJoinColumns = @JoinColumn(name = "directors_id"))
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "films")
     private Set<Director> directors = new LinkedHashSet<>();
 
 

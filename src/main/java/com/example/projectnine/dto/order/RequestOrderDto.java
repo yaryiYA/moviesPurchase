@@ -20,8 +20,7 @@ import java.util.UUID;
 @Data
 @Schema( name = "Request order",description = "Request order dto")
 public class RequestOrderDto extends AbstractRequestDto implements Serializable {
-    @Schema(name = "field uuid" ,example = "UUID")
-    private final UUID id;
+
     @Schema(name = "field users" ,example = " users UUID")
     private final RequestUsersDto users;
     @Schema(name = "field price" ,example = "10_00_00")

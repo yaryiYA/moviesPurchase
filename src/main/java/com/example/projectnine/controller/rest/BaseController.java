@@ -16,7 +16,7 @@ public abstract class BaseController <E extends AbstractEntity,
         S extends AbstractResponseDto,
         V extends CommonService<E,Q,S>>
         implements CommonController<E,Q,S> {
-    final V service;
+    protected V service;
 
     protected BaseController(V service) {
         this.service = service;

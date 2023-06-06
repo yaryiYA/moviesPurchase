@@ -16,8 +16,7 @@ import java.util.UUID;
 @Data
 @Schema(name = "Request role", description = "Request role dto")
 public class RequestRoleDto extends AbstractRequestDto implements Serializable {
-    @Schema(name = "field UUID", example = " Role UUID")
-    private final UUID id;
+
     @Schema(name = "field title", example = " ADMIN")
     private final String title;
 }

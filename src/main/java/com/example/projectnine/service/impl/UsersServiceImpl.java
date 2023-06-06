@@ -1,33 +1,43 @@
 package com.example.projectnine.service.impl;
 
+import com.example.projectnine.dto.film.ResponseFilmDto;
 import com.example.projectnine.dto.user.RequestUsersDto;
 import com.example.projectnine.dto.user.ResponseUsersDto;
+import com.example.projectnine.entity.Film;
 import com.example.projectnine.entity.Users;
-import com.example.projectnine.mapper.CommonMapper;
+import com.example.projectnine.mapper.film.FilmCommonMapper;
+import com.example.projectnine.mapper.user.UsersCommonMapper;
 import com.example.projectnine.repository.impl.UsersRepository;
 import com.example.projectnine.security.CustomPasswordEncoder;
 import com.example.projectnine.service.BaseService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-@Service
-public class UsersServiceImpl extends BaseService<Users, UsersRepository, RequestUsersDto, ResponseUsersDto> implements UserDetailsService {
+import java.util.List;
+import java.util.UUID;
 
+@Service
+public class UsersServiceImpl extends BaseService<Users, UsersRepository, RequestUsersDto, ResponseUsersDto, UsersCommonMapper> implements UserDetailsService {
+    @Autowired
     public UsersServiceImpl(UsersRepository repository,
-                            CommonMapper<Users, RequestUsersDto, ResponseUsersDto> commonMapper,
+                            UsersCommonMapper commonMapper,
                             UsersRepository usersRepository,
-                            CustomPasswordEncoder customPasswordEncoder) {
+                            CustomPasswordEncoder customPasswordEncoder,
+                            FilmCommonMapper filmCommonMapper) {
         super(repository, commonMapper);
         this.usersRepository = usersRepository;
         this.customPasswordEncoder = customPasswordEncoder;
+        this.filmCommonMapper = filmCommonMapper;
     }
 
     private final UsersRepository usersRepository;
 
     private final CustomPasswordEncoder customPasswordEncoder;
+    private final FilmCommonMapper filmCommonMapper;
 
 
     @Override
@@ -36,14 +46,26 @@ public class UsersServiceImpl extends BaseService<Users, UsersRepository, Reques
 
         return User.builder()
                 .username(user.getLogin())
-                .password(user.getPassword())
+                .password(customPasswordEncoder.encode(user.getPassword()))
                 .roles(user.getRole().getTitle())
                 .build();
     }
-    public void registerUser(Users user) {
-        user.setPassword(customPasswordEncoder.encode(user.getPassword()));
-        usersRepository.save(user);
 
+    public ResponseUsersDto registerUser(RequestUsersDto requestUsersDto) {
+        Users entity = super.commonMapper.toEntity(requestUsersDto);
+        super.repository.save(entity);
+        return super.commonMapper.toResponse(entity);
     }
 
+    public List<ResponseFilmDto> allFilmsByUser(UUID userId) {
+        List<Film> films = super.repository.findFilmsByUser(userId);
+        List<ResponseFilmDto> filmDto = films.stream()
+                .map(filmCommonMapper::toResponse).toList();
+        return filmDto;
+    }
 }
+
+
+
+
+

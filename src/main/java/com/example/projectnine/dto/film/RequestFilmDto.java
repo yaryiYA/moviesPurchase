@@ -17,8 +17,7 @@ import java.util.UUID;
 @Data
 @Schema(name ="Request film", description = "request film dto")
 public class RequestFilmDto extends AbstractRequestDto implements Serializable {
-    @Schema(name = "field uuid",example = "UUID")
-    private final UUID id;
+
     @Schema(name = "field title",example = "Avatar")
     private final String title;
     @Schema(name = "field country",example = "USA")

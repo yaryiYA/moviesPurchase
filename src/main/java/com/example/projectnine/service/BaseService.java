@@ -13,19 +13,22 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
 @Service
 public abstract class BaseService
         <E extends AbstractEntity,
                 R extends CommonRepository<E>,
                 Q extends AbstractRequestDto,
-                S extends AbstractResponseDto>
+                S extends AbstractResponseDto,
+                M extends CommonMapper<E, Q, S>>
+
         implements CommonService<E, Q, S> {
 
-    final R repository;
-    final CommonMapper<E,Q,S> commonMapper;
+    protected final R repository;
+    protected final M commonMapper;
 
-    @Autowired
-    public BaseService(R repository, CommonMapper<E, Q, S> commonMapper) {
+
+    public BaseService(R repository, M commonMapper) {
         this.repository = repository;
         this.commonMapper = commonMapper;
     }
