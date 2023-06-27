@@ -21,7 +21,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Service
-public class UsersServiceImpl extends BaseService<Users, UsersRepository, RequestUsersDto, ResponseUsersDto, UsersCommonMapper> implements UserDetailsService {
+public class UsersServiceImpl extends BaseService<Users,
+        UsersRepository,
+        RequestUsersDto,
+        ResponseUsersDto,
+        UsersCommonMapper>
+        implements UserDetailsService {
     @Autowired
     public UsersServiceImpl(UsersRepository repository,
                             UsersCommonMapper commonMapper,
@@ -46,7 +51,7 @@ public class UsersServiceImpl extends BaseService<Users, UsersRepository, Reques
 
         return User.builder()
                 .username(user.getLogin())
-                .password(customPasswordEncoder.encode(user.getPassword()))
+                .password(user.getPassword())
                 .roles(user.getRole().getTitle())
                 .build();
     }
@@ -59,9 +64,8 @@ public class UsersServiceImpl extends BaseService<Users, UsersRepository, Reques
 
     public List<ResponseFilmDto> allFilmsByUser(UUID userId) {
         List<Film> films = super.repository.findFilmsByUser(userId);
-        List<ResponseFilmDto> filmDto = films.stream()
+        return films.stream()
                 .map(filmCommonMapper::toResponse).toList();
-        return filmDto;
     }
 }
 
